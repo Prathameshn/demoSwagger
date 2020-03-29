@@ -104,7 +104,7 @@ router.route('/users/:userId')
 router.param('userId', getByIdUser);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use('/api/v1', router);
+app.use('/v1', router);
 
 app.listen(3000);
 module.exports = app;
