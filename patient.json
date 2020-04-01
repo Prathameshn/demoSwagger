@@ -1,0 +1,785 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Patient Case Service",
+        "description": "Patient related all api are here",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:3000",
+    "basePath": "/v1/patient",
+    "tags": [
+        {
+            "name": "Patient",
+            "description": "API for patient in patient case service"
+        },
+        {
+            "name": "User",
+            "description": "API for user in patient case service"
+        },
+        {
+            "name": "Plan",
+            "description": "API for plan in patient case service"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/auth/register": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Create or login new user",
+                "parameters": [
+                    {
+                        "name": "patient",
+                        "in": "body",
+                        "description": "user that we want to create or login",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New user is created and login",
+                        "schema": {
+                            "$ref": "#/definitions/Patient"
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Get user",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Details",
+                        "schema": {
+                            "$ref": "#/definitions/Patient"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Update user",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "patient",
+                        "in": "body",
+                        "description": "user that we want to create or login",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User updated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Patient"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/plans": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Get paln",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Details",
+                        "schema": {
+                            "$ref": "#/definitions/Plan"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/activecase": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Get paln",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Details",
+                        "schema": {
+                            "$ref": "#/definitions/PatientCase"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/cases": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Get paln",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Details",
+                        "schema": {
+                            "$ref": "#/definitions/PatientCases"
+                        }
+                    }
+                }
+            }
+        },
+        "/patient": {
+            "post": {
+                "tags": [
+                    "Patient"
+                ],
+                "description": "Create new patient",
+                "parameters": [
+                    {
+                        "name": "patient",
+                        "in": "body",
+                        "description": "patient that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/Patient"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New patient is created",
+                        "schema": {
+                            "$ref": "#/definitions/Patient"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Patient"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "summary": "Get all patient in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Patient"
+                        }
+                    }
+                }
+            }
+        },
+        "/patient/{patientId}": {
+            "parameters": [
+                {
+                    "name": "patientId",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of patient that we want to find",
+                    "type": "string"
+                },
+                {
+                    "in": "header",
+                    "name": "Authorization",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Patient"
+                ],
+                "summary": "Get Patient with given ID",
+                "responses": {
+                    "200": {
+                        "description": "Patient is found",
+                        "schema": {
+                            "$ref": "#/definitions/Patient"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete Patient with given ID",
+                "tags": [
+                    "Patient"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Patient is deleted",
+                        "schema": {
+                            "$ref": "#/definitions/Patient"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update Patient with give ID",
+                "tags": [
+                    "Patient"
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "Patient with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/Patient"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Patient is updated",
+                        "schema": {
+                            "$ref": "#/definitions/Patient"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Patient": {
+            "required": [
+                "firstName",
+                "lastName"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "mobileNumber": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "relation": {
+                    "type": "string",
+                    "enum": [
+                        "Self",
+                        "Father",
+                        "Mother",
+                        "Sister",
+                        "Brother",
+                        "Husband",
+                        "Wife",
+                        "Friend",
+                        "Others"
+                    ]
+                },
+                "dob": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "weight": {
+                    "type": "number"
+                },
+                "careTakers": {
+                    "type": "string"
+                },
+                "healthRecords": {
+                    "type": "string"
+                },
+                "height": {
+                    "type": "object",
+                    "properties": {
+                        "feet": {
+                            "type": "number"
+                        },
+                        "inches": {
+                            "type": "number"
+                        }
+                    }
+                },
+                "gender": {
+                    "type": "string",
+                    "enum": [
+                        "Male",
+                        "Female",
+                        "Others"
+                    ]
+                },
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                }
+            }
+        },
+        "Patients": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Patient"
+            }
+        },
+        "User": {
+            "required": [
+                "mobileNumber"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "mobileNumber": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "role": {
+                    "type": "string",
+                    "enum": [
+                        "user",
+                        "admin"
+                    ]
+                },
+                "dob": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "fcmId": {
+                    "type": "string"
+                },
+                "businessChannel": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "services": {
+                    "type": "object",
+                    "properties": {
+                        "facebook": {
+                            "type": "string"
+                        },
+                        "google": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "relations": {
+                    "type": "object",
+                    "properties": {
+                        "firstName": {
+                            "type": "string"
+                        },
+                        "lastName": {
+                            "type": "string"
+                        },
+                        "relation": {
+                            "type": "string",
+                            "enum": [
+                                "Self",
+                                "Father",
+                                "Mother",
+                                "Sister",
+                                "Brother",
+                                "Husband",
+                                "Wife",
+                                "Friend",
+                                "Others"
+                            ]
+                        },
+                        "patient": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "referralCode": {
+                    "type": "string"
+                },
+                "picture": {
+                    "type": "string"
+                },
+                "mobileDeviceInfo": {
+                    "type": "object",
+                    "properties": {
+                        "fcmId": {
+                            "type": "string"
+                        },
+                        "platformType": {
+                            "type": "string"
+                        },
+                        "make": {
+                            "type": "string"
+                        },
+                        "model": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "gender": {
+                    "type": "string",
+                    "enum": [
+                        "Male",
+                        "Female",
+                        "Others"
+                    ]
+                },
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "Plan": {
+            "properties": {
+                "user": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "firstName": {
+                            "type": "string"
+                        },
+                        "lastName": {
+                            "type": "string"
+                        },
+                        "mobileNumber": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "createdBy": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "firstName": {
+                            "type": "string"
+                        },
+                        "lastName": {
+                            "type": "string"
+                        },
+                        "mobileNumber": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "businessChannel": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "type": {
+                    "type": "string"
+                },
+                "referralCode": {
+                    "type": "string"
+                },
+                "monitoringPeriod": {
+                    "type": "string"
+                },
+                "reportFrequency": {
+                    "type": "number"
+                },
+                "status": {
+                    "type": "string",
+                    "enum": [
+                        "ACTIVE",
+                        "MAPPED",
+                        "USED",
+                        "EXPIRED",
+                        "PAYMENT_PENDING"
+                    ]
+                },
+                "quickReports": {
+                    "type": "object",
+                    "properties": {
+                        "count": {
+                            "type": "number"
+                        },
+                        "isFree": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            }
+        },
+        "Device": {
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "monitoringPeriod": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "text": {
+                            "type": "string"
+                        },
+                        "durationInMins": {
+                            "type": "number"
+                        }
+                    }
+                },
+                "device": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "businessChannel": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "provisioningStatus": {
+                    "type": "string"
+                },
+                "isMapped": {
+                    "type": "boolean"
+                },
+                "serialNumber": {
+                    "type": "number"
+                },
+                "batchId": {
+                    "type": "number"
+                },
+                "patchId": {
+                    "type": "number"
+                },
+                "errorNotes": {
+                    "type": "number"
+                }
+            }
+        },
+        "PatientCase": {
+            "properties": {
+                "plan": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "monitoringPeriod": {
+                            "type": "number"
+                        },
+                        "reportFrequency": {
+                            "type": "number"
+                        }
+                    }
+                },
+                "patient": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "firstName": {
+                            "type": "string"
+                        },
+                        "lastName": {
+                            "type": "string"
+                        },
+                        "relation": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "user": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "firstName": {
+                            "type": "string"
+                        },
+                        "lastName": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "businessChannel": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "serviceType": {
+                    "type": "string"
+                },
+                "caseNumber": {
+                    "type": "string"
+                },
+                "currentStage": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string",
+                    "enum": [
+                        "Ongoing",
+                        "Failed",
+                        "Started",
+                        "Success"
+                    ]
+                },
+                "mobileConfig": {
+                    "type": "object",
+                    "properties": {
+                        "version": {
+                            "type": "number"
+                        },
+                        "id": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "isActive": {
+                    "type": "boolean"
+                },
+                "hasMonitoringPeriodElapsed": {
+                    "type": "boolean"
+                },
+                "device": {
+                    "type": "object",
+                    "$ref": "#/definitions/Device"
+                },
+                "validatedDevice": {
+                    "type": "object",
+                    "$ref": "#/definitions/Device"
+                }
+            }
+        },
+        "PatientCases": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/PatientCase"
+            }
+        }
+    }
+}
