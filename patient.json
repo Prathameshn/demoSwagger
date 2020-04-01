@@ -21,8 +21,8 @@
             "description": "API for user in patient case service"
         },
         {
-            "name": "Plan",
-            "description": "API for plan in patient case service"
+            "name": "PatientCase",
+            "description": "API for PatientCase in patient case service"
         }
     ],
     "schemes": [
@@ -320,6 +320,100 @@
                         "description": "Patient is updated",
                         "schema": {
                             "$ref": "#/definitions/Patient"
+                        }
+                    }
+                }
+            }
+        },
+        "/patientcase/{patientCaseId}/validateDevice": {
+            "patch": {
+                "tags": [
+                    "PatientCase"
+                ],
+                "description": "Validate patch",
+                "parameters": [
+                    {
+                        "name": "patchId",
+                        "in": "body",
+                        "description": "patchId that we want to validate",
+                        "schema": {
+                            "properties": {
+                                "patchId": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "name": "patientCaseId",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of patient case Id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validate patch",
+                        "schema": {
+                            "$ref": "#/definitions/Patient"
+                        }
+                    }
+                }
+            }
+        },
+        "/patientcase": {
+            "post": {
+                "tags": [
+                    "PatientCase"
+                ],
+                "description": "Create Patient Case",
+                "parameters": [
+                    {
+                        "name": "PatientCase",
+                        "in": "body",
+                        "description": "PatientCase that we want to create",
+                        "schema": {
+                            "properties": {
+                                "reasonToEnroll": {
+                                    "type": "string"
+                                },
+                                "plan": {
+                                    "type": "string"
+                                },
+                                "patient": {
+                                    "type": "string"
+                                },
+                                "doctor": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully create case",
+                        "schema": {
+                            "$ref": "#/definitions/PatientCase"
                         }
                     }
                 }
