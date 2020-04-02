@@ -1,0 +1,86 @@
+ @POST("patient/auth/register")
+    Observable<RegisterUserResponse> registerUser(@Body RegisterUser registerUser);
+​
+    @GET("patient/users")
+    Observable<UserDetails> getUser();
+​
+    @PATCH("patient/users")
+    Observable<RegisterUserResponse> updateUser(@Body RegisterUser registerUser);
+​
+    @PUT("v1/pacman/patch/{patchId}/status={status}")
+    Observable<UpdateStatusResponse> updatePatchStatus(@Path("patchId") String patchId, @Path("status") String statusString);
+​
+    @PATCH("patient/patientcase/{patientCaseID}/stage")
+    Observable<RecordingTimeResponse> updateStartTime(@Body Stage stage, @Path("patientCaseID") String patientCaseID);
+​
+    @POST("patient/patientcase/{caseId}/device")
+    Observable<CaseDetails> addDeviceToCase(@Path("caseId") String caseId, @Body DeviceValidationRequest deviceValidationRequest);
+​
+    @GET("patient/users/patient")
+    Observable<Patients> getPatients();
+​
+    @GET("patient/users/activecase")
+    Observable<ActiveCaseResponse> getActiveCase();
+​
+    @GET("patient/caseconfig")
+    Observable<List<CaseConfig>> getCaseConfig();
+​
+    @GET("patient/patientcase")
+    Observable<List<CaseDetails>> getCases();
+​
+    @GET("patient/patientCase/{patientCase}/report")
+    Observable<List<ReportDetail>> getReports(@Path("patientCase") String patientCaseId);
+​
+    @GET("patient/mobileconfig/{mobileConfigId}")
+    Observable<MobileConfig> getMobileConfig(@Path("mobileConfigId") String mobileConfigId);
+​
+    @POST("patient/patientcase")
+    Observable<CaseDetails> createCase(@Body Case aCase);
+​
+    @PATCH("patient/patientcase/{caseId}/addPatient")
+    Observable<CaseDetails> addPatientToCase(@Body PatientDetails patientDetails, @Path("caseId") String caseId);
+​
+    @PATCH("patient/patientcase/{caseId}/updateHealthRecord")
+    Observable<CaseDetails> updateHealthRecord(@Body PatientDetails patientDetails, @Path("caseId") String caseId);
+​
+    @GET("patient/patient/{patientId}")
+    Observable<PatientDetails> getPatient(@Path("patientId") String patientId);
+​
+    @GET("patient/users/plans")
+    Observable<PlanSummaryResponse> getPlans();
+​
+        @POST("v1/pacman/request/{requestId}/markasprocessed")
+    Observable<UpdateStatusResponse> updateRequestStatus(@Body MissingPacketProcessedTime missingPacketRequestedTime, @Path("requestId") String requestId);
+​
+    @POST("v1/patch/initialize")
+    Observable<RecordingTimeResponse> initializePackMan(@Body PatchRecordingStartTime patchRecordingStartTime);
+​
+    @PATCH("patient/patientcase/{caseId}/validateDevice")
+    Observable<CaseDetails> validateDevice(@Body DeviceValidationRequest deviceValidationRequest, @Path("caseId") String caseId);
+​
+    @GET("patient/master/healthrecords")
+    Observable<List<MasterData>> getHealthRecordsMasterData(@Query("label") String label);
+​
+    @GET("patient/master/activity")
+    Observable<List<MasterData>> getUserActivitiesMasterData();
+​
+    @GET("patient/master/events")
+    Observable<List<MasterData>> getUserEventsMasterData();
+​
+    @GET("patient/patientcase/{patientId}/notification")
+    Observable<List<SupportDetailResponse>> getSupportDetails(@Path("patientId") String caseID, @Query("code") String type);
+​
+    @GET("patient/patientcase/{patientId}/notification")
+    Observable<List<SupportDetailResponse>> getAllSupportDetails(@Path("patientId") String caseID);
+​
+    @POST("patient/patientcase/{caseId}/triggerEvent")
+    Observable<UpdateStatusResponse> markEventOrActivity(@Body EventType eventType, @Path("caseId") String caseId);
+​
+    @POST("patient/patientcase/{id}/finished")
+    Observable<UpdateStatusResponse> updateLastSequence(@Body LastSequence lastSequence, @Path("id") String caseId);
+​
+    @GET("patient/feedbackMaster/getAll")
+    Observable<List<FeedbackMaster>> getFeedbackMaster();
+​
+    @PATCH("patient/patientcase/{id}/feedback")
+    Observable<UpdateStatusResponse> submitFeedback(@Body Feedback feedback, @Path("id") String caseId);

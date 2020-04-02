@@ -2,19 +2,31 @@
     "swagger": "2.0",
     "info": {
         "version": "1.0.0",
-        "title": "Yet Another Node.js Blogg Application API",
-        "description": "Yet Another Node.js Blogg Application API",
+        "title": "Patient Case Service",
+        "description": "Patient related all api are here",
         "license": {
             "name": "MIT",
             "url": "https://opensource.org/licenses/MIT"
         }
     },
-    "host": "13.233.117.190:3000",
-    "basePath": "/api/v1",
+    "host": "localhost:3000",
+    "basePath": "/v1/patient",
     "tags": [
         {
-            "name": "Users",
-            "description": "API for users in the system"
+            "name": "Patient",
+            "description": "API for patient in patient case service"
+        },
+        {
+            "name": "User",
+            "description": "API for user in patient case service"
+        },
+        {
+            "name": "PatientCase",
+            "description": "API for PatientCase in patient case service"
+        },
+        {
+            "name": "Master",
+            "description": "API for all master data in patient case service"
         }
     ],
     "schemes": [
@@ -27,17 +39,17 @@
         "application/json"
     ],
     "paths": {
-        "/users": {
+        "/auth/register": {
             "post": {
                 "tags": [
-                    "Users"
+                    "User"
                 ],
-                "description": "Create new user in system",
+                "description": "Create or login new user",
                 "parameters": [
                     {
-                        "name": "user",
+                        "name": "patient",
                         "in": "body",
-                        "description": "User that we want to create",
+                        "description": "user that we want to create or login",
                         "schema": {
                             "$ref": "#/definitions/User"
                         }
@@ -48,86 +60,814 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "New user is created",
+                        "description": "New user is created and login",
                         "schema": {
-                            "$ref": "#/definitions/User"
-                        }
-                    }
-                }
-            },
-            "get": {
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Get all users in system",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/Users"
+                            "$ref": "#/definitions/Patient"
                         }
                     }
                 }
             }
         },
-        "/users/{userId}": {
+        "/users": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Get user",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Details",
+                        "schema": {
+                            "$ref": "#/definitions/Patient"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Update user",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "patient",
+                        "in": "body",
+                        "description": "user that we want to create or login",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User updated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Patient"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/plans": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Get paln",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Details",
+                        "schema": {
+                            "$ref": "#/definitions/Plan"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/patient": {
+            "post": {
+                "tags": [
+                    "Patient"
+                ],
+                "description": "Create new patient",
+                "summary": "Create new patient",
+                "parameters": [
+                    {
+                        "name": "patient",
+                        "in": "body",
+                        "description": "patient that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/Patient"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New patient is created",
+                        "schema": {
+                            "$ref": "#/definitions/Patient"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/activecase": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Get paln",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Details",
+                        "schema": {
+                            "$ref": "#/definitions/PatientCase"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/cases": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Get paln",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Details",
+                        "schema": {
+                            "$ref": "#/definitions/PatientCases"
+                        }
+                    }
+                }
+            }
+        },
+        "/patient": {
+            "post": {
+                "tags": [
+                    "Patient"
+                ],
+                "description": "Create new patient",
+                "parameters": [
+                    {
+                        "name": "patient",
+                        "in": "body",
+                        "description": "patient that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/Patient"
+                        }
+                    }
+                ],
+                "summary": "Create new patient(not in use)",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New patient is created",
+                        "schema": {
+                            "$ref": "#/definitions/Patient"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Patient"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "summary": "Get all patient in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Patient"
+                        }
+                    }
+                }
+            }
+        },
+        "/patient/{patientId}": {
             "parameters": [
                 {
-                    "name": "userId",
+                    "name": "patientId",
                     "in": "path",
                     "required": true,
-                    "description": "ID of user that we want to find",
+                    "description": "ID of patient that we want to find",
+                    "type": "string"
+                },
+                {
+                    "in": "header",
+                    "name": "Authorization",
+                    "required": true,
                     "type": "string"
                 }
             ],
             "get": {
                 "tags": [
-                    "Users"
+                    "Patient"
                 ],
-                "summary": "Get user with given ID",
+                "summary": "Get Patient with given ID",
                 "responses": {
                     "200": {
-                        "description": "User is found",
+                        "description": "Patient is found",
                         "schema": {
-                            "$ref": "#/definitions/User"
+                            "$ref": "#/definitions/Patient"
                         }
                     }
                 }
             },
             "delete": {
-                "summary": "Delete user with given ID",
+                "summary": "Delete Patient with given ID",
                 "tags": [
-                    "Users"
+                    "Patient"
                 ],
                 "responses": {
                     "200": {
-                        "description": "User is deleted",
+                        "description": "Patient is deleted",
                         "schema": {
-                            "$ref": "#/definitions/User"
+                            "$ref": "#/definitions/Patient"
                         }
                     }
                 }
             },
             "put": {
-                "summary": "Update user with give ID",
+                "summary": "Update Patient with give ID",
                 "tags": [
-                    "Users"
+                    "Patient"
                 ],
                 "parameters": [
                     {
                         "name": "user",
                         "in": "body",
-                        "description": "User with new values of properties",
+                        "description": "Patient with new values of properties",
                         "schema": {
-                            "$ref": "#/definitions/User"
+                            "$ref": "#/definitions/Patient"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "User is updated",
+                        "description": "Patient is updated",
                         "schema": {
-                            "$ref": "#/definitions/User"
+                            "$ref": "#/definitions/Patient"
+                        }
+                    }
+                }
+            }
+        },
+        "/patientcase/{patientCaseId}/feedback": {
+            "patch": {
+                "tags": [
+                    "PatientCase"
+                ],
+                "description": "post feedback for case",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "feedback that we want to post",
+                        "schema": {
+                            "properties": {
+                                "rating": {
+                                    "type": "string"
+                                },
+                                "comment": {
+                                    "type": "string"
+                                },
+                                "options": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "name": "patientCaseId",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of patient case Id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validate patch",
+                        "schema": {
+                            "$ref": "#/definitions/PatientCase"
+                        }
+                    }
+                }
+            }
+        },
+        "/patientcase/{patientCaseId}/finished": {
+            "patch": {
+                "tags": [
+                    "PatientCase"
+                ],
+                "description": "post feedback for case",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "feedback that we want to post",
+                        "schema": {
+                            "properties": {
+                                "endSequence": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "name": "patientCaseId",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of patient case Id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validate patch",
+                        "schema": {
+                            "$ref": "#/definitions/PatientCase"
+                        }
+                    }
+                }
+            }
+        },
+        "/patientcase/{patientCaseId}/triggerEvent": {
+            "patch": {
+                "tags": [
+                    "PatientCase"
+                ],
+                "description": "Trigger event for case",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "code and event which want to fire for case",
+                        "schema": {
+                            "properties": {
+                                "code": {
+                                    "type": "string"
+                                },
+                                "event": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "name": "patientCaseId",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of patient case Id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validate patch",
+                        "schema": {
+                            "properties": {
+                                "code": {
+                                    "type": "string"
+                                },
+                                "event": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/patientcase/{patientCaseId}/device": {
+            "post": {
+                "tags": [
+                    "PatientCase"
+                ],
+                "description": "Validate patch and add to case",
+                "parameters": [
+                    {
+                        "name": "patchId",
+                        "in": "body",
+                        "description": "patchId that we want to validate and add to case",
+                        "schema": {
+                            "properties": {
+                                "patchId": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "name": "patientCaseId",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of patient case Id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validate patch",
+                        "schema": {
+                            "$ref": "#/definitions/PatientCase"
+                        }
+                    }
+                }
+            }
+        },
+        "/patientcase/{patientCaseId}/validateDevice": {
+            "patch": {
+                "tags": [
+                    "PatientCase"
+                ],
+                "description": "Validate patch and add to case",
+                "parameters": [
+                    {
+                        "name": "patchId",
+                        "in": "body",
+                        "description": "patchId that we want to validate and add to case",
+                        "schema": {
+                            "properties": {
+                                "patchId": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "name": "patientCaseId",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of patient case Id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validate patch",
+                        "schema": {
+                            "$ref": "#/definitions/PatientCase"
+                        }
+                    }
+                }
+            }
+        },
+        "/patientcase/{patientCaseId}/addPatient": {
+            "patch": {
+                "tags": [
+                    "PatientCase"
+                ],
+                "description": "Add patient to patient case",
+                "parameters": [
+                    {
+                        "name": "patient id",
+                        "in": "body",
+                        "description": "patient id to add in case",
+                        "schema": {
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "name": "patientCaseId",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of patient case Id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validate patch",
+                        "schema": {
+                            "$ref": "#/definitions/PatientCase"
+                        }
+                    }
+                }
+            }
+        },
+        "/patientcase/{patientCaseId}/updateHealthRecord": {
+            "patch": {
+                "tags": [
+                    "PatientCase"
+                ],
+                "description": "Add patient to patient case",
+                "parameters": [
+                    {
+                        "name": "patient id",
+                        "in": "body",
+                        "description": "patient id to add in case",
+                        "schema": {
+                            "properties": {
+                                "healthRecords": {
+                                    "properties": {
+                                        "medicalHistory": {
+                                            "type": "array",
+                                            "items": {}
+                                        },
+                                        "surgicalHistory": {
+                                            "type": "array",
+                                            "items": {}
+                                        },
+                                        "drugHistory": {
+                                            "type": "array",
+                                            "items": {}
+                                        },
+                                        "systemsReview": {
+                                            "type": "array",
+                                            "items": {}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "name": "patientCaseId",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of patient case Id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validate patch",
+                        "schema": {
+                            "$ref": "#/definitions/PatientCase"
+                        }
+                    }
+                }
+            }
+        },
+        "/patientcase/{patientCaseId}/report": {
+            "get": {
+                "tags": [
+                    "PatientCase"
+                ],
+                "description": "post feedback for case",
+                "parameters": [
+                    {
+                        "name": "patientCaseId",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of patient case Id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validate patch",
+                        "schema": {
+                            "$ref": "#/definitions/CaseReport"
+                        }
+                    }
+                }
+            }
+        },
+        "/patientcase": {
+            "post": {
+                "tags": [
+                    "PatientCase"
+                ],
+                "description": "Create Patient Case",
+                "parameters": [
+                    {
+                        "name": "PatientCase",
+                        "in": "body",
+                        "description": "PatientCase that we want to create",
+                        "schema": {
+                            "properties": {
+                                "reasonToEnroll": {
+                                    "type": "string"
+                                },
+                                "plan": {
+                                    "type": "string"
+                                },
+                                "patient": {
+                                    "type": "string"
+                                },
+                                "doctor": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully create case",
+                        "schema": {
+                            "$ref": "#/definitions/PatientCase"
+                        }
+                    }
+                }
+            }
+        },
+        "/feedbackMaster/getAll": {
+            "get": {
+                "tags": [
+                    "Master"
+                ],
+                "description": "Get FeedBackMaster",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All FeedBackMaster Details",
+                        "schema": {
+                            "$ref": "#/definitions/FeedBackMaster"
+                        }
+                    }
+                }
+            }
+        },
+        "/master/healthrecords": {
+            "get": {
+                "tags": [
+                    "Master"
+                ],
+                "description": "Get FeedBackMaster",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All FeedBackMaster Details",
+                        "schema": {
+                            "$ref": "#/definitions/FeedBackMaster"
+                        }
+                    }
+                }
+            }
+        },
+        "/master/activity": {
+            "get": {
+                "tags": [
+                    "Master"
+                ],
+                "description": "Get activity",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All activity Details",
+                        "schema": {
+                            "$ref": "#/definitions/Activity"
+                        }
+                    }
+                }
+            }
+        },
+        "/master/events": {
+            "get": {
+                "tags": [
+                    "Master"
+                ],
+                "description": "Get events",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All events Details",
+                        "schema": {
+                            "$ref": "#/definitions/Activity"
                         }
                     }
                 }
@@ -135,15 +875,65 @@
         }
     },
     "definitions": {
-        "User": {
+        "Patient": {
             "required": [
-                "email",
-                "_id"
+                "firstName",
+                "lastName"
             ],
             "properties": {
                 "_id": {
                     "type": "string",
                     "uniqueItems": true
+                },
+                "mobileNumber": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "relation": {
+                    "type": "string",
+                    "enum": [
+                        "Self",
+                        "Father",
+                        "Mother",
+                        "Sister",
+                        "Brother",
+                        "Husband",
+                        "Wife",
+                        "Friend",
+                        "Others"
+                    ]
+                },
+                "dob": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "weight": {
+                    "type": "number"
+                },
+                "careTakers": {
+                    "type": "string"
+                },
+                "healthRecords": {
+                    "type": "string"
+                },
+                "height": {
+                    "type": "object",
+                    "properties": {
+                        "feet": {
+                            "type": "number"
+                        },
+                        "inches": {
+                            "type": "number"
+                        }
+                    }
+                },
+                "gender": {
+                    "type": "string",
+                    "enum": [
+                        "Male",
+                        "Female",
+                        "Others"
+                    ]
                 },
                 "email": {
                     "type": "string",
@@ -157,9 +947,533 @@
                 }
             }
         },
-        "Users": {
+        "Patients": {
             "type": "array",
-            "$ref": "#/definitions/User"
+            "items": {
+                "$ref": "#/definitions/Patient"
+            }
+        },
+        "User": {
+            "required": [
+                "mobileNumber"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "mobileNumber": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "role": {
+                    "type": "string",
+                    "enum": [
+                        "user",
+                        "admin"
+                    ]
+                },
+                "dob": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "fcmId": {
+                    "type": "string"
+                },
+                "businessChannel": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "services": {
+                    "type": "object",
+                    "properties": {
+                        "facebook": {
+                            "type": "string"
+                        },
+                        "google": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "relations": {
+                    "type": "object",
+                    "properties": {
+                        "firstName": {
+                            "type": "string"
+                        },
+                        "lastName": {
+                            "type": "string"
+                        },
+                        "relation": {
+                            "type": "string",
+                            "enum": [
+                                "Self",
+                                "Father",
+                                "Mother",
+                                "Sister",
+                                "Brother",
+                                "Husband",
+                                "Wife",
+                                "Friend",
+                                "Others"
+                            ]
+                        },
+                        "patient": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "referralCode": {
+                    "type": "string"
+                },
+                "picture": {
+                    "type": "string"
+                },
+                "mobileDeviceInfo": {
+                    "type": "object",
+                    "properties": {
+                        "fcmId": {
+                            "type": "string"
+                        },
+                        "platformType": {
+                            "type": "string"
+                        },
+                        "make": {
+                            "type": "string"
+                        },
+                        "model": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "gender": {
+                    "type": "string",
+                    "enum": [
+                        "Male",
+                        "Female",
+                        "Others"
+                    ]
+                },
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "Plan": {
+            "properties": {
+                "user": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "firstName": {
+                            "type": "string"
+                        },
+                        "lastName": {
+                            "type": "string"
+                        },
+                        "mobileNumber": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "createdBy": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "firstName": {
+                            "type": "string"
+                        },
+                        "lastName": {
+                            "type": "string"
+                        },
+                        "mobileNumber": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "businessChannel": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "type": {
+                    "type": "string"
+                },
+                "referralCode": {
+                    "type": "string"
+                },
+                "monitoringPeriod": {
+                    "type": "string"
+                },
+                "reportFrequency": {
+                    "type": "number"
+                },
+                "status": {
+                    "type": "string",
+                    "enum": [
+                        "ACTIVE",
+                        "MAPPED",
+                        "USED",
+                        "EXPIRED",
+                        "PAYMENT_PENDING"
+                    ]
+                },
+                "quickReports": {
+                    "type": "object",
+                    "properties": {
+                        "count": {
+                            "type": "number"
+                        },
+                        "isFree": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            }
+        },
+        "Device": {
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "monitoringPeriod": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "text": {
+                            "type": "string"
+                        },
+                        "durationInMins": {
+                            "type": "number"
+                        }
+                    }
+                },
+                "device": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "businessChannel": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "provisioningStatus": {
+                    "type": "string"
+                },
+                "isMapped": {
+                    "type": "boolean"
+                },
+                "serialNumber": {
+                    "type": "number"
+                },
+                "batchId": {
+                    "type": "number"
+                },
+                "patchId": {
+                    "type": "number"
+                },
+                "errorNotes": {
+                    "type": "number"
+                }
+            }
+        },
+        "PatientCase": {
+            "properties": {
+                "plan": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "monitoringPeriod": {
+                            "type": "number"
+                        },
+                        "reportFrequency": {
+                            "type": "number"
+                        }
+                    }
+                },
+                "patient": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "firstName": {
+                            "type": "string"
+                        },
+                        "lastName": {
+                            "type": "string"
+                        },
+                        "relation": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "user": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "firstName": {
+                            "type": "string"
+                        },
+                        "lastName": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "businessChannel": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "serviceType": {
+                    "type": "string"
+                },
+                "caseNumber": {
+                    "type": "string"
+                },
+                "currentStage": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string",
+                    "enum": [
+                        "Ongoing",
+                        "Failed",
+                        "Started",
+                        "Success"
+                    ]
+                },
+                "mobileConfig": {
+                    "type": "object",
+                    "properties": {
+                        "version": {
+                            "type": "number"
+                        },
+                        "id": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "isActive": {
+                    "type": "boolean"
+                },
+                "hasMonitoringPeriodElapsed": {
+                    "type": "boolean"
+                },
+                "device": {
+                    "type": "object",
+                    "$ref": "#/definitions/Device"
+                },
+                "validatedDevice": {
+                    "type": "object",
+                    "$ref": "#/definitions/Device"
+                }
+            }
+        },
+        "PatientCases": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/PatientCase"
+            }
+        },
+        "FeedBackMaster": {
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "rating": {
+                    "type": "number"
+                },
+                "options": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "description": {
+                    "type": "string"
+                }
+            }
+        },
+        "HealthRecord": {
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "description": {
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string",
+                    "uniqueItems": true
+                }
+            }
+        },
+        "Event": {
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "description": {
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string",
+                    "uniqueItems": true
+                }
+            }
+        },
+        "Activity": {
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "description": {
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string",
+                    "uniqueItems": true
+                }
+            }
+        },
+        "CaseReport": {
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "patientCase": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string",
+                    "enum": [
+                        "Initialized",
+                        "DataRetrieved",
+                        "GWFileEDFConvertedSuccess",
+                        "CardiologsUploaded",
+                        "Generated"
+                    ]
+                },
+                "from": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "to": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "cardiologsEcgId": {
+                    "type": "string"
+                },
+                "generationTime": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "reportName": {
+                    "type": "string"
+                },
+                "path": {
+                    "type": "string"
+                },
+                "startSequence": {
+                    "type": "number"
+                },
+                "endSequence": {
+                    "type": "number"
+                },
+                "isFinal": {
+                    "type": "boolean"
+                },
+                "dataStatus": {
+                    "type": "string",
+                    "enum": [
+                        "PENDING",
+                        "COMPLETED"
+                    ]
+                },
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "Scheduled",
+                        "Ondemand",
+                        "EventBased"
+                    ]
+                },
+                "report_url": {
+                    "type": "string"
+                },
+                "ecg_id": {
+                    "type": "string"
+                },
+                "ecg_status": {
+                    "type": "string"
+                }
+            }
         }
     }
 }
